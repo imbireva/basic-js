@@ -23,9 +23,67 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  let matrixNumbers = [];
+  for (let i = 0; i < matrix.length; i++) {
+    let subarray = [];
+
+    for (let j = 0; j < matrix[i].length; j++) {
+      let resultNumber;
+
+      if (i === 0) {
+        if (j === 0) {
+          resultNumber = Number(matrix[i][j + 1]) +
+          Number(matrix[i + 1][j]) + Number(matrix[i + 1][j + 1]);
+        }
+        else if (j === matrix[i].length - 1) {
+          resultNumber = Number(matrix[i][j - 1]) + Number(matrix[i + 1][j - 1]) +
+          Number(matrix[i + 1][j]);
+        }
+        else {
+          resultNumber = Number(matrix[i][j - 1]) + Number(matrix[i][j + 1]) +
+          Number(matrix[i + 1][j - 1]) + Number(matrix[i + 1][j] + Number(matrix[i + 1][j + 1]));
+        }
+        subarray.push(resultNumber);        
+      }
+
+      else if (i === matrix.length - 1) {
+        if (j === 0) {
+          resultNumber = Number(matrix[i - 1][j]) +
+          Number(matrix[i - 1][j + 1]) + Number(matrix[i][j + 1]);
+        }
+        else if (j === matrix[i].length - 1) {
+          resultNumber = Number(matrix[i - 1][j]) + Number(matrix[i - 1][j - 1]) +
+          Number(matrix[i][j - 1]);
+        }
+        else {
+          resultNumber = Number(matrix[i - 1][j - 1]) + Number(matrix[i - 1][j]) +
+          Number(matrix[i - 1][j + 1]) + Number(matrix[i][j - 1] + Number(matrix[i][j + 1]));
+        }
+        subarray.push(resultNumber);       
+      }
+
+      else {
+        if (j === 0) {
+          resultNumber = Number(matrix[i - 1][j]) +
+          Number(matrix[i - 1][j + 1]) + Number(matrix[i][j + 1]) + Number(matrix[i + 1][j] + 
+          Number(matrix[i + 1][j + 1]));
+        }
+        else if (j === matrix[i].length - 1) {
+          resultNumber = Number(matrix[i - 1][j]) + Number(matrix[i - 1][j - 1]) +
+          Number(matrix[i][j - 1]) + Number(matrix[i + 1][j]) + Number(matrix[i + 1][j - 1]);
+        }
+        else {
+          resultNumber = Number(matrix[i - 1][j - 1]) + Number(matrix[i - 1][j]) +
+          Number(matrix[i - 1][j + 1]) + Number(matrix[i][j - 1] + Number(matrix[i][j + 1])) + 
+          Number(matrix[i + 1][j - 1]) + Number(matrix[i + 1][j]) + Number(matrix[i + 1][j + 1]);
+        }
+        subarray.push(resultNumber);        
+      }
+    }
+    matrixNumbers.push(subarray);
+  }
+  return matrixNumbers;
 }
 
 module.exports = {
